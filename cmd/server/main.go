@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/devgit072/production-ready-rest-api-in-go/internal/pkg/database"
 	"log"
 	transportHTTP "github.com/devgit072/production-ready-rest-api-in-go/internal/pkg/transport/http"
 	"net/http"
@@ -15,6 +16,10 @@ type App struct {
 
 func (app *App) Run() error {
 	log.Println("Starting the server")
+	_, err := database.NewDatabase()
+	if err != nil {
+		log.Fatalf("Error: %s", err.Error())
+	}
 	h := transportHTTP.NewHandler()
 	h.CreateRoutes()
 	if err := http.ListenAndServe(fmt.Sprintf(":%d", port), h.Router); err != nil {
