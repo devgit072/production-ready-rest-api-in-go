@@ -2,6 +2,7 @@ package database
 
 import (
 	"fmt"
+	"github.com/devgit072/production-ready-rest-api-in-go/internal/books"
 	"log"
 	"os"
 	"gorm.io/gorm"
@@ -35,4 +36,11 @@ func NewDatabase() (*gorm.DB, error) {
 	}
 	log.Println("New database connection created successfully")
 	return db, nil
+}
+
+func AutoMigrateDB(db *gorm.DB) error {
+	if err := db.AutoMigrate(&books.Book{}); err != nil {
+		return err
+	}
+	return nil
 }
