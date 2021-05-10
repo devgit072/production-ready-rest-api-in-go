@@ -34,7 +34,7 @@ func NewService(db *gorm.DB) *Service {
 
 // Get book by given ID. ID will be primary key of Book table.
 func (s *Service) GetBoook(ID uint) (*Book, error)  {
-	log.Println("Fetching book with id: %d", ID)
+	log.Printf("Fetching book with id: %d\n", ID)
 	var book Book
 	// ID is primary key.
 	// First parameter is variable where you want to assign the results and second parameter is ID which will match with primary key.
@@ -80,6 +80,11 @@ func (s *Service) Updatebook(ID uint, book Book) error {
 // Delete the Book given its ID.
 func (s *Service) DeleteBook(ID uint)  error {
 	log.Println("Deleting book having id: %d", ID)
+	b, err := s.GetBoook(ID)
+	if err != nil {
+		return err
+	}
+	log.Println("Deleting book: %+v", b)
 	if r := s.DB.Delete(&Book{}, ID); r.Error != nil {
 		return r.Error
 	}
