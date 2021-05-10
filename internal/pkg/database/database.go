@@ -3,10 +3,10 @@ package database
 import (
 	"fmt"
 	"github.com/devgit072/production-ready-rest-api-in-go/internal/books"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 	"log"
 	"os"
-	"gorm.io/gorm"
-	"gorm.io/driver/postgres"
 )
 
 // Returns a pointer to databse object.

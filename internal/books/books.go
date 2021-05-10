@@ -14,8 +14,8 @@ type Service struct {
 type Book struct {
 	gorm.Model
 	Author string
-	Title string
-	Price float64
+	Title  string
+	Price  float64
 }
 
 type BooksService interface {
@@ -33,7 +33,7 @@ func NewService(db *gorm.DB) *Service {
 }
 
 // Get book by given ID. ID will be primary key of Book table.
-func (s *Service) GetBoook(ID uint) (*Book, error)  {
+func (s *Service) GetBoook(ID uint) (*Book, error) {
 	log.Printf("Fetching book with id: %d\n", ID)
 	var book Book
 	// ID is primary key.
@@ -78,7 +78,7 @@ func (s *Service) Updatebook(ID uint, book Book) error {
 }
 
 // Delete the Book given its ID.
-func (s *Service) DeleteBook(ID uint)  error {
+func (s *Service) DeleteBook(ID uint) error {
 	log.Println("Deleting book having id: %d", ID)
 	b, err := s.GetBoook(ID)
 	if err != nil {
@@ -90,5 +90,3 @@ func (s *Service) DeleteBook(ID uint)  error {
 	}
 	return nil
 }
-
-

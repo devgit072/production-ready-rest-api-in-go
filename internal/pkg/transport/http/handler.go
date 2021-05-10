@@ -11,13 +11,13 @@ import (
 )
 
 type Handler struct {
-	Router *mux.Router
+	Router  *mux.Router
 	Service *books.Service
 }
 
 // struct for rest api response.
 type ApiResponse struct {
-	Msg string
+	Msg   string
 	Error string
 }
 
@@ -39,12 +39,13 @@ func (h *Handler) CreateRoutes() {
 }
 
 // Ping method to check if service is up or not.
-func (h *Handler) Ping (w http.ResponseWriter, r *http.Request) {
+func (h *Handler) Ping(w http.ResponseWriter, r *http.Request) {
 	setHeader(w)
 	if err := json.NewEncoder(w).Encode(ApiResponse{Msg: "pong"}); err != nil {
 		log.Fatalf("Service is down. Error: %s", err.Error())
 	}
 }
+
 // Rest api implementaion for get book by its ID.
 func (h *Handler) GetBook(w http.ResponseWriter, r *http.Request) {
 	setHeader(w)
