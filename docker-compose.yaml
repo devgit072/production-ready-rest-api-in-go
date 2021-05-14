@@ -1,0 +1,43 @@
+version: "3.3"
+
+services:
+  db:
+    image: postgres:13.2-alpine
+    container_name: "api-db"
+    ports:
+    - "5432:5432"
+    environment:
+      - DB_NAME=postgres
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_HOST=localhost
+    networks:
+      - fullstack
+    volumes:
+      - database_postgres:/usr/share/postgresql/data
+
+  api:
+    build: .
+    container_name: "prod-ready-api"
+    environment:
+      DB_USERNAME: "postgres"
+      DB_PASSWORD: "postgres"
+      DB_HOST: "localhost"
+      DB_PORT: "5432"
+      DB_NAME: "postgres"
+      DB_DB: "postgres"
+    ports:
+      - "7000:7000"
+    depends_on:
+      - db
+    networks:
+      - fullstack
+
+volumes:
+  database_postgres:
+
+networks:
+ fullstack:
+  driver: bridge
+
+# docker-compose up --build
